@@ -30,7 +30,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           # Replace 'your-docker-username' with your actual Docker Hub username
           tags: |
-            your-docker-username/takealot:latest
-            your-docker-username/takealot:${{ github.sha }}
+            PaballoStevens/takealotclone:latest
+            PaballoStevens/takealotclone:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
