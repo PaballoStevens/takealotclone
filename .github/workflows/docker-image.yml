@@ -1,36 +1,24 @@
-name: Docker Image CI
+name: CI Pipeline
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 jobs:
+
   build:
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          # Replace 'your-docker-username' with your actual Docker Hub username
-          tags: |
-            PaballoStevens/takealotclone:latest
-            PaballoStevens/takealotclone:${{ github.sha }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+    - uses: actions/checkout@v3
+    - name: Login Dockerhub
+      env:
+        USERNAME: ${{secrets.DOCKER_USERNAME}}
+        PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      
+    - name: Build the Docker image
+      run: docker build -t PaballoStevens/takealotclone .
+    - name: Push to Dockerhub
+      run: docker push PaballoStevens/takealotclone:latest
