@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Pull Docker image
-      run: sudo docker pull PaballoStevens/takealotclone:latest
+      run: sudo docker pull paballostevens/takealotclone:latest
     - name: Delete Old docker container
       run: sudo docker rm -f takealotclone-container || true
     - name: Run Docker Container
