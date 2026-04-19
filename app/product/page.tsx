@@ -95,7 +95,6 @@ async function ProductPage({ searchParams: { url }}: Props) {
             {product?.currency} {product.price}
         </p>
 
-        {/* Add to Cart Button */}
         <AddToCart product={product}/>
 
         <hr />
